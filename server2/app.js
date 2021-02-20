@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //routes setup
 var loginRouter = require('./routes/loginRouter');
 var signupRouter = require('./routes/signupRouter');
+var confirmationRouter = require('./routes/confirmationRouter');
 
 // view engine setup: not relevant cuz using react
 // app.set('views', path.join(__dirname, 'views'));
@@ -36,6 +37,8 @@ app.use('/edusearch_login', loginRouter);
 app.use('/edusearch_login', express.static('public'));
 app.use('/edusearch_signup', signupRouter);
 app.use('/edusearch_signup', express.static('public'));
+app.use('/edusearch_confirmation', confirmationRouter);
+app.use('/edusearch_confirmation', express.static('public'));
 
 
 // catch 404 and forward to error handler

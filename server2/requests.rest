@@ -15,8 +15,8 @@ POST http://localhost:3001/edusearch_signup
 Content-Type: application/json
 
 {
-    "username": "anewtest7",
-    "password": "Anewtest6!",
-    "email": "anewtest7@gmail.com"
+    "username": "Jeff",
+    "password": "Jeff777!",
+    "email": "jeffzincatz@gmail.com"
 }
 

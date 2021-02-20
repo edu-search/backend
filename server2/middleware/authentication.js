@@ -22,7 +22,7 @@ function generateAccessToken(username) {
 
 async function authenticateUser(user) {
     
-    const found_user = await User.findOne({ where: { username: user.username } });
+    const found_user = await User.findOne({ where: { name: user.username } });
     if (!found_user || !(await bcrypt.compare(user.password, found_user.hash))) { 
       throw 'Username or password is incorrect'; 
     } else {
@@ -32,7 +32,7 @@ async function authenticateUser(user) {
 }
 
 async function isDuplicateUser(newUser) {
-  const existingUser =  await User.findOne({where: {username: newUser.username}});
+  const existingUser =  await User.findOne({where: {name: newUser.username}});
   if(existingUser != null) {
     throw "This username already exists"
   } else {

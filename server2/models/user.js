@@ -2,7 +2,13 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 const dsn = require('../database/db_init');
 const sequelize = new Sequelize(dsn.dbname, dsn.user, dsn.password, {
   host: dsn.host,
-  dialect: 'mysql'
+  dialect: 'mysql',
+  define: {
+    tableName: "users",
+    timestamps: false,
+    createdAt: "create_at",
+    updatedAt: "update_at",
+  },
 });
 
 module.exports = User = sequelize.define('User', {
@@ -12,7 +18,7 @@ module.exports = User = sequelize.define('User', {
     allowNull: false,
     primaryKey: true
   },
-  username: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -40,7 +46,7 @@ module.exports = User = sequelize.define('User', {
     type: DataTypes.TIME,
     allowNull: true
   },
-  updated_at: {
+  update_at: {
     type: DataTypes.TIME,
     allowNull: true
   },

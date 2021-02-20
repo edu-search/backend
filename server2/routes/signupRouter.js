@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var User = require("../models/user");
+var EmailToken = require("../models/emailToken");
 const bcrypt = require('bcrypt');
 const idGen = require("../util/idgen");
+const verifyEmail = require("../util/verifyEmail");
 const auth = require("../middleware/authentication");
 const isDuplicateUser = auth.isDuplicateUser;
 const isDuplicateEmail = auth.isDuplicateEmail;
@@ -15,30 +17,39 @@ router.route('/')
     })
     .post((req, res, next) => {
         const newUser = req.body;
-        //User.sync()
+        // User.sync()
         Promise.all([isDuplicateEmail(newUser), isDuplicateUser(newUser)])
             .then((newUser) => {
                 const saltRounds = 10;
-                const salt = bcrypt.genSaltSync(saltRounds)
-                const hash = bcrypt.hashSync(req.body.password, salt);
-                
-                const test_user = User.create({
+                const salt = bcrypt.genSaltSync(saltRounds);
+                const hash = bcrypt.hashSync(req.body.password, saltRounds);
+
+                const new_user = {
                     id: idGen(),
-                    username: req.body.username,
+                    name: req.body.username,
                     email: req.body.email,
                     salt: salt,
                     hash: hash,
                     access_token: generateAccessToken(req.body.username),
-                    
-                });
+                };
 
-                res.send({
-                    message: "registration successful!"
+                const emailToken = verifyEmail(new_user);
+
+                EmailToken.create({
+                    id: 1,
+                    token: emailToken,
                 });
+        
+                // Register success page
+                res.send("Registration successful!\n" +
+                    "Please check your email.");
             })
-            .catch((err) => res.send({
-                message: err
-            }))
+            .catch((err) => {
+                console.error(err);
+                // Register fail page
+                res.send("Registration failed!\n" +
+                    "Some unexpected error has occured:\n\t" + err);
+            })
     });
 
 //separate checking for checking buttons
