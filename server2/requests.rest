@@ -1,0 +1,22 @@
+# login
+
+POST http://localhost:3001/edusearch_login
+Content-Type: application/json
+
+{
+    "username": "anewtest2",
+    "password": "Anewtest2!"
+}
+
+###
+# signup
+
+POST http://localhost:3001/edusearch_signup
+Content-Type: application/json
+
+{
+    "username": "anewtest7",
+    "password": "Anewtest6!",
+    "email": "anewtest7@gmail.com"
+}
+
