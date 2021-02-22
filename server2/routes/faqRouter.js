@@ -3,28 +3,28 @@ var router = express.Router();
 var faq = require("../models/faq");
 const idGen = require("../util/idgen");
 
-async function findStudentFaq() {
-    var studentFaq = await faq.findAll({ where: { section: 0 } });
-    if (studentFaq == null) {
+async function findFaq() {
+    var Faq = await faq.findAll();
+    if (Faq == null) {
         throw "no faq found"
     } else {
-        console.log("student faq found");
+        console.log("faq found");
     }
-    return studentFaq;
+    return Faq;
 
 };
 
-
 async function createFaq(faqdata) {
-    if (faqdata.section == 0) {
+    if (faqdata.section == 0 || faqdata.section == 1) {
         const studentFaq = await faq.create({
             id: idGen(),
             question: faqdata.question,
             answer: faqdata.answer,
-            section: 0
-        })
-
-    }
+            section: faqdata.section 
+        }) 
+    } else {
+        throw "invalid section number, put 0 for student qn and 1 for teacher"
+    } 
 }
 
 async function deleteFaqbyQuestion(question) {
@@ -41,11 +41,11 @@ async function deleteFaqbyQuestion(question) {
 
 router.route("/")
     .get((req, res, next) => {
-        findStudentFaq()
-            .then((studentFaq) => {
+        findFaq()
+            .then((Faq) => {
                 res.send(
                     {
-                        faqdata: studentFaq
+                        faqdata: Faq
                     }
                 )
 
@@ -77,9 +77,5 @@ router.route("/")
                 message: err
             }))
     })
-// router.route('/tutor')
-//     .get((req, res, next) => {
-//         faq.findAll({ where: { section: 1 } })
-//     })
 
 module.exports = router;

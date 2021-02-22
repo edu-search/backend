@@ -22,11 +22,12 @@ Content-Type: application/json
 
 ###
 #send a faq
-GET http://localhost:3001/faq
-# Content-Type: application/json
+POST http://localhost:3001/faq
+Content-Type: application/json
 
-# {
+{
+    "section": 1,
+    "question": "test question",
+    "answer": "test answer"
     
-#     "question": "test id 1"
-    
-# }
+}
