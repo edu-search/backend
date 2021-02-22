@@ -20,3 +20,13 @@ Content-Type: application/json
     "email": "anewtest7@gmail.com"
 }
 
+###
+#send a faq
+GET http://localhost:3001/faq
+# Content-Type: application/json
+
+# {
+    
+#     "question": "test id 1"
+    
+# }

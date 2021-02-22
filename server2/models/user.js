@@ -40,7 +40,7 @@ module.exports = User = sequelize.define('User', {
     type: DataTypes.TIME,
     allowNull: true
   },
-  updated_at: {
+  update_at: {
     type: DataTypes.TIME,
     allowNull: true
   },

@@ -72,3 +72,10 @@ CREATE TABLE student_post(
     subject_id INTEGER,
     description TEXT
 );
+
+CREATE TABLE faq(
+    id SERIAL PRIMARY KEY, 
+    section INTEGER, 
+    question TEXT,
+    answer TEXT
+)
